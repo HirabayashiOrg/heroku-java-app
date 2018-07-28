@@ -25,4 +25,5 @@ public class TodoListBean {
 
 	@Column(nullable=false)
 	private int status;
+
 }
