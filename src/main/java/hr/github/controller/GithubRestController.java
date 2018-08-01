@@ -28,6 +28,8 @@ public class GithubRestController {
 				commitStr += json_obj.getString("id") + ", ";
 			}
 
+			commitStr += json.getJSONObject("comments_url");
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
