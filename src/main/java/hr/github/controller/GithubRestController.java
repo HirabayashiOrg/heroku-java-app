@@ -28,15 +28,11 @@ public class GithubRestController {
 		// jsonデータをマップにバインド
 		try {
 			JSONObject json = new JSONObject(body);
-
+			// コミット番号を取得
 			commits = CommitUtil.getCimmitIdList(body);
-
-			String url = json.getJSONObject("repository").getString("commits_url");
-			url = url.replaceAll("{.*}", "");
-			commitStr = url;
-
-			URL urlObj = new URL(url);
-			HttpURLConnection http = (HttpURLConnection) urlObj.openConnection();
+			// コミット取得APIのURLを生成
+			URL url = CommitUtil.getCommitUrl(body);
+			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 	        http.setRequestMethod("GET");
 	        http.connect();
 
