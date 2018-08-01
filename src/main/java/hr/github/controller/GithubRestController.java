@@ -46,7 +46,7 @@ public class GithubRestController {
 		}
 
 		GithubTmpBean obj = new GithubTmpBean();
-		obj.setBody(commitStr);
+		obj.setBody(body);
 
 		repo.saveAndFlush(obj);
 
