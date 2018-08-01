@@ -1,15 +1,12 @@
 package hr.github.controller;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import hr.github.bean.GithubTmpBean;
 import hr.github.repository.GithubRepository;
@@ -21,23 +18,18 @@ public class GithubRestController {
 
 	@RequestMapping("/github/webhook/push")
 	public Object webhook(@RequestBody String body) {
-		// jsonデータをマップにバインド
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> map = new LinkedHashMap<>();
-		try {
-			map = mapper.readValue(
-					body,
-					new TypeReference<LinkedHashMap<String, Object>>() {
-					});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 		String commitStr = "";
-		commitStr += map.get("commits").toString();
-		commitStr += " : ";
-		for(Map obj :(Map[])map.get("commits")) {
-			commitStr += obj.get("id") + ", ";
+		// jsonデータをマップにバインド
+		try {
+			JSONObject json = new JSONObject(body);
+			JSONArray json_ary = json.getJSONArray("commits");
+			for(int i=0; i < json_ary.length(); i++) {
+				JSONObject json_obj = json_ary.getJSONObject(i);
+				commitStr += json_obj.getString("id") + ", ";
+			}
+
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 
 		GithubTmpBean obj = new GithubTmpBean();
