@@ -44,7 +44,7 @@ public class GithubRestController {
 
 	        InputStream is = http.getInputStream();
 		} catch (Exception e) {
-			e.printStackTrace();
+			commitStr = e.getMessage();
 		}
 
 		GithubTmpBean obj = new GithubTmpBean();
