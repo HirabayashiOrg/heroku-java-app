@@ -1,10 +1,12 @@
 package hr.github.controller;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +37,13 @@ public class GithubRestController {
 			url = url.replaceAll("{.*}", "");
 			commitStr = url;
 
-		} catch (JSONException e) {
+			URL urlObj = new URL(url);
+			HttpURLConnection http = (HttpURLConnection) urlObj.openConnection();
+	        http.setRequestMethod("GET");
+	        http.connect();
+
+	        InputStream is = http.getInputStream();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
