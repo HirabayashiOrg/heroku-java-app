@@ -23,6 +23,7 @@ public class CommitUtil{
 	public static URL getCommitUrl(String json) throws Exception {
 		JSONObject obj = new JSONObject(json);
 		String url_string = obj.getJSONObject("repository").getString("commits_url");
+		url_string = url_string.replaceAll("\\{.*\\}", "");
 		URL url = new URL(url_string);
 		return url;
 	}
