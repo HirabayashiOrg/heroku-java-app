@@ -31,8 +31,9 @@ public class GithubRestController {
 				JSONObject json_obj = json_ary.getJSONObject(i);
 				commits.add(json_obj.getString("id"));
 			}
-
-			commitStr += json.getJSONObject("comments_url");
+			String url = json.getString("comments_url");
+			url = url.replaceAll("{.*}", "");
+			commitStr = url;
 
 		} catch (JSONException e) {
 			e.printStackTrace();
