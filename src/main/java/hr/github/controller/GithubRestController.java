@@ -34,7 +34,11 @@ public class GithubRestController {
 		}
 
 		String commitStr = "";
-		commitStr = map.get("commits").toString();
+		commitStr += map.get("commits").toString();
+		commitStr += " : ";
+		for(Map obj :(Map[])map.get("commits")) {
+			commitStr += obj.get("id") + ", ";
+		}
 
 		GithubTmpBean obj = new GithubTmpBean();
 		obj.setBody(commitStr);
