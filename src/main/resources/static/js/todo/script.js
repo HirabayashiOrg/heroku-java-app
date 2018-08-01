@@ -1,36 +1,17 @@
-$(function() {
-	$('li').on({
-		'click': function() {
-			$(this).toggleClass('active');
-		}
-	});
-});
-
 angular.module('myapp', ['ngResource'])
 .controller('myctrl', ['$scope', '$resource', function($scope, $resource){
-	var TodoList = $resource('/todo/api/list',{}, {
-		get: {
-			method: 'GET',
-			isArray: true
-		},
-	});
-	var TodoAdd = $resource('/todo/api/add',{
-		title: 'title',
-	}, {
-		add: {
-			method: 'POST',
-		},
-	});
+	var Todo = $resource('/todo/api/list');
 
-	$scope.list = TodoList.get();
-	$scope.add = function() {
+	$scope.list = Todo.query();
+	$scope.add  = function() {
 		var title = $scope.title;
-		var obj = {
-			id    : 99,
-			title : title,
-			status: 0,
-		}
-		$scope.title = '';
-		$scope.list.push(obj);
-	}
+		$.post('/todo/api/add', {
+			title: title
+		}, function(data) {
+			$scope.list = Todo.query();
+		});
+	};
+	$scope.update = function(id) {
+		alert(id);
+	};
 }]);

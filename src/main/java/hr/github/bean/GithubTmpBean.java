@@ -1,4 +1,4 @@
-package hr.todo.bean;
+package hr.github.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,17 +13,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="TBL_TODO_LIST")
-public class TodoListBean {
+@Table(name="TBL_GITHUB_TMP")
+public class GithubTmpBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int id;
 
 	@Column(nullable=false)
-	private String title;
-
-	@Column(nullable=false)
-	private int status;
-
+	private String body;
 }

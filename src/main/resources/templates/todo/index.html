@@ -23,18 +23,20 @@
 				<div class="col-sm-8">
 					<input type="text" ng-model="title" class="form-control">
 				</div>
-				<button class="btn btn-info col-sm-2"  >登録</button>
+				<button class="btn btn-info   col-sm-2">登録</button>
 				<button class="btn btn-danger col-sm-2">削除</button>
 			</div>
 		</form>
 
-		<ul class="list-group" ng-repeat="obj in list">
-			<li class="list-group-item" ng-class="{active: obj.status==0}" ng-click="update(obj.id)">{{obj.title}}</li>
+		<ul class="list-group">
+			<li class="list-group-item"
+			    ng-repeat="obj in list"
+			    ng-class="{active: obj.status==0}"
+			    ng-click="update(obj)">{{obj.title}}</li>
 		</ul>
 
 		<pre>{{list}}</pre>
 	</div>
-
 
 </div>
 </body>
