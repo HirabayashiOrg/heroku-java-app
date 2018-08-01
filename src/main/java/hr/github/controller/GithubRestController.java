@@ -13,7 +13,7 @@ public class GithubRestController {
 	@Autowired
 	GithubRepository repo;
 
-	@RequestMapping("/github/webhook")
+	@RequestMapping("/github/webhook/push")
 	public Object webhook(@RequestBody String body) {
 		GithubTmpBean obj = new GithubTmpBean();
 		obj.setBody(body);
