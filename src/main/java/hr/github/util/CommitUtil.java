@@ -1,5 +1,6 @@
 package hr.github.util;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,5 +18,12 @@ public class CommitUtil{
 		}
 
 		return list;
+	}
+
+	public static URL getCommitUrl(String json) throws Exception {
+		JSONObject obj = new JSONObject(json);
+		String url_string = obj.getJSONObject("repository").getString("commits_url");
+		URL url = new URL(url_string);
+		return url;
 	}
 }
