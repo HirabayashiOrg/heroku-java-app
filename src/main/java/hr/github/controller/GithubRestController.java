@@ -31,7 +31,7 @@ public class GithubRestController {
 
 			commits = CommitUtil.getCimmitIdList(body);
 
-			String url = json.getString("comments_url");
+			String url = json.getString("commits_url");
 			url = url.replaceAll("{.*}", "");
 			commitStr = url;
 
