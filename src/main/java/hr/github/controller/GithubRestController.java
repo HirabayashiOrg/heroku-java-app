@@ -1,6 +1,5 @@
 package hr.github.controller;
 
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,9 +33,8 @@ public class GithubRestController {
 			URL url = CommitUtil.getCommitUrl(body);
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 	        http.setRequestMethod("GET");
-	        http.connect();
+//	        http.connect();
 
-	        InputStream is = http.getInputStream();
 		} catch (Exception e) {
 			commitStr = e.getMessage();
 		}
