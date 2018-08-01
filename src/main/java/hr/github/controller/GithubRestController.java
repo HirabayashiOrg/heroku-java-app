@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hr.github.bean.GithubTmpBean;
 import hr.github.repository.GithubRepository;
+import hr.github.util.CommitUtil;
 
 @RestController
 public class GithubRestController {
@@ -28,11 +28,9 @@ public class GithubRestController {
 		// jsonデータをマップにバインド
 		try {
 			JSONObject json = new JSONObject(body);
-			JSONArray json_ary = json.getJSONArray("commits");
-			for(int i=0; i < json_ary.length(); i++) {
-				JSONObject json_obj = json_ary.getJSONObject(i);
-				commits.add(json_obj.getString("id"));
-			}
+
+			commits = CommitUtil.getCimmitIdList(body);
+
 			String url = json.getString("comments_url");
 			url = url.replaceAll("{.*}", "");
 			commitStr = url;
