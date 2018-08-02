@@ -41,14 +41,14 @@ public class GithubRestController {
 			for(String commit: commits) {
 				String json_commit = CommitUtil.getAPIData(url + commit);
 				JSONObject json_obj_commit = new JSONObject(json_commit);
-				String total     = json_obj_commit.getJSONObject("stats").getString("total");
-				String addtions  = json_obj_commit.getJSONObject("stats").getString("additions");
-				String deletions = json_obj_commit.getJSONObject("stats").getString("deletions");
+				int total     = json_obj_commit.getJSONObject("stats").getInt("total");
+				int addtions  = json_obj_commit.getJSONObject("stats").getInt("additions");
+				int deletions = json_obj_commit.getJSONObject("stats").getInt("deletions");
 
 				GithubPushBean bean = new GithubPushBean();
-				bean.setTotal(Integer.parseInt(total));
-				bean.setAdditions(Integer.parseInt(addtions));
-				bean.setDeletions(Integer.parseInt(deletions));
+				bean.setTotal(total);
+				bean.setAdditions(addtions);
+				bean.setDeletions(deletions);
 				beans.add(bean);
 			}
 		} catch (Exception e) {
