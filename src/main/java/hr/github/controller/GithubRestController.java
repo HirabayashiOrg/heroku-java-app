@@ -39,7 +39,7 @@ public class GithubRestController {
 			// String jsondata = CommitUtil.getAPIData(url);
 
 			for(String commit: commits) {
-				String json_commit = CommitUtil.getAPIData(url + "commit");
+				String json_commit = CommitUtil.getAPIData(url + commit);
 				JSONObject json_obj_commit = new JSONObject(json_commit);
 				String total     = json_obj_commit.getJSONObject("stats").getString("total");
 				String addtions  = json_obj_commit.getJSONObject("stats").getString("additions");

@@ -27,3 +27,4 @@
 ### Local Bat ###
 connect-mysql.bat
 git-push.bat
+heroku-log-tail.bat
