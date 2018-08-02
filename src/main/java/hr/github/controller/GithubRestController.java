@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.linecorp.bot.client.LineMessagingClient;
+
 import hr.github.bean.GithubPushBean;
 import hr.github.repository.GithubPushRepository;
 import hr.github.util.CommitUtil;
@@ -22,6 +24,12 @@ public class GithubRestController {
 
 	@Autowired
 	ErrorMessageRepository errRepo;
+
+	private final LineMessagingClient lineMessagingClient;
+
+	GithubRestController(LineMessagingClient lineMessagingClient) {
+		this.lineMessagingClient = lineMessagingClient;
+	}
 
 	@RequestMapping("/github/webhook/push")
 	public void webhook(@RequestBody String body) {
@@ -50,6 +58,8 @@ public class GithubRestController {
 				bean.setAdditions(addtions);
 				bean.setDeletions(deletions);
 				beans.add(bean);
+
+				//lineMessagingClient.pushMessage(new PushMessage("total : " + bean.getTotal(), null));
 			}
 		} catch (Exception e) {
 			ErrorMessageBean bean = new ErrorMessageBean();
