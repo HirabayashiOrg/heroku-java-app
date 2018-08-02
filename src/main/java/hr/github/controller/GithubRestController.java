@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import hr.github.bean.GithubPushBean;
 import hr.github.repository.GithubPushRepository;
 import hr.github.util.CommitUtil;
+import hr.master.bean.ErrorMessageBean;
+import hr.master.repository.ErrorMessageRepository;
 
 @RestController
 public class GithubRestController {
 	@Autowired
 	GithubPushRepository repo;
+
+	@Autowired
+	ErrorMessageRepository errRepo;
 
 	@RequestMapping("/github/webhook/push")
 	public void webhook(@RequestBody String body) {
@@ -47,7 +52,9 @@ public class GithubRestController {
 				beans.add(bean);
 			}
 		} catch (Exception e) {
-			commitStr = e.getMessage();
+			ErrorMessageBean bean = new ErrorMessageBean();
+			bean.setMessage(e.getMessage());
+			errRepo.saveAndFlush(bean);
 		}
 		repo.saveAll(beans);
 		repo.flush();
