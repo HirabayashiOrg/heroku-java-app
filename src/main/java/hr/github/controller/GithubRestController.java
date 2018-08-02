@@ -50,6 +50,7 @@ public class GithubRestController {
 			commitStr = e.getMessage();
 		}
 		repo.saveAll(beans);
+		repo.flush();
 
 		return;
 	}
