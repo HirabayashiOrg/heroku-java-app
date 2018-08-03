@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.github.bean.GithubPushBean;
+import hr.github.bean.GithubPushViewBean;
 import hr.github.repository.GithubPushRepository;
+import hr.github.repository.GithubPushViewRepository;
 import hr.github.util.CommitUtil;
 import hr.line.uril.LinePushUtil;
 import hr.master.repository.ErrorMessageRepository;
@@ -20,6 +22,9 @@ import hr.master.repository.ErrorMessageRepository;
 public class GithubRestController {
 	@Autowired
 	GithubPushRepository repo;
+
+	@Autowired
+	GithubPushViewRepository repo_v;
 
 	@Autowired
 	ErrorMessageRepository errRepo;
@@ -59,8 +64,13 @@ public class GithubRestController {
 		return 200;
 	}
 
-	@GetMapping("/github/api/commit")
+	@GetMapping("/github/api/t/github_push")
 	public List<GithubPushBean> commit() {
 		return repo.findAll();
+	}
+
+	@GetMapping("/github/api/v/github_push")
+	public List<GithubPushViewBean> v_github_push__findAll() {
+		return repo_v.findAll();
 	}
 }
