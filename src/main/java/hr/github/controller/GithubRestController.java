@@ -14,7 +14,6 @@ import hr.github.bean.GithubPushBean;
 import hr.github.repository.GithubPushRepository;
 import hr.github.util.CommitUtil;
 import hr.line.uril.LinePushUtil;
-import hr.master.bean.ErrorMessageBean;
 import hr.master.repository.ErrorMessageRepository;
 
 @RestController
@@ -26,39 +25,33 @@ public class GithubRestController {
 	ErrorMessageRepository errRepo;
 
 	@RequestMapping("/github/webhook/push")
-	public void webhook(@RequestBody String body) {
+	public void webhook(@RequestBody String body) throws Exception {
 		String commitStr = "";
 		List<String> commits = new ArrayList<String>();
 		List<GithubPushBean> beans = new ArrayList<GithubPushBean>();
 
 		// jsonデータをマップにバインド
-		try {
-			JSONObject json = new JSONObject(body);
-			// コミット番号を取得
-			commits = CommitUtil.getCimmitIdList(body);
-			// コミット取得APIのURLを生成
-			String url = CommitUtil.getCommitUrl(body);
-			// String jsondata = CommitUtil.getAPIData(url);
+		JSONObject json = new JSONObject(body);
+		// コミット番号を取得
+		commits = CommitUtil.getCimmitIdList(body);
+		// コミット取得APIのURLを生成
+		String url = CommitUtil.getCommitUrl(body);
+		// String jsondata = CommitUtil.getAPIData(url);
 
-			for(String commit: commits) {
-				String json_commit = CommitUtil.getAPIData(url + commit);
-				JSONObject json_obj_commit = new JSONObject(json_commit);
-				int total     = json_obj_commit.getJSONObject("stats").getInt("total");
-				int addtions  = json_obj_commit.getJSONObject("stats").getInt("additions");
-				int deletions = json_obj_commit.getJSONObject("stats").getInt("deletions");
+		for(String commit: commits) {
+			String json_commit = CommitUtil.getAPIData(url + commit);
+			JSONObject json_obj_commit = new JSONObject(json_commit);
+			int total     = json_obj_commit.getJSONObject("stats").getInt("total");
+			int addtions  = json_obj_commit.getJSONObject("stats").getInt("additions");
+			int deletions = json_obj_commit.getJSONObject("stats").getInt("deletions");
 
-				GithubPushBean bean = new GithubPushBean();
-				bean.setTotal(total);
-				bean.setAdditions(addtions);
-				bean.setDeletions(deletions);
-				beans.add(bean);
-				// Lineに通知する
-				LinePushUtil.sendMessage(LinePushUtil.TO_RYO, bean.toString());
-			}
-		} catch (Exception e) {
-			ErrorMessageBean bean = new ErrorMessageBean();
-			bean.setMessage(e.getMessage());
-			errRepo.saveAndFlush(bean);
+			GithubPushBean bean = new GithubPushBean();
+			bean.setTotal(total);
+			bean.setAdditions(addtions);
+			bean.setDeletions(deletions);
+			beans.add(bean);
+			// Lineに通知する
+			LinePushUtil.sendMessage(LinePushUtil.TO_RYO, bean.toString());
 		}
 		repo.saveAll(beans);
 		repo.flush();
