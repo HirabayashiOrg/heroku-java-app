@@ -11,9 +11,11 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name="TBL_GITHUB_PUSH")
 public class GithubPushBean {
