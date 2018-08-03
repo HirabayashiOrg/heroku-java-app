@@ -67,7 +67,7 @@ public class GithubRestController {
 	}
 
 	@GetMapping("/github/api/commit")
-	public Object commit() {
-		return new Object();
+	public List<GithubPushBean> commit() {
+		return repo.findAll();
 	}
 }
