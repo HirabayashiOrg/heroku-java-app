@@ -1,14 +1,16 @@
 package hr.line.uril;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 
+@Component
 public class LinePushUtil {
-	@Value("${linebot.token}")
+	@Value("${line.bot.channel-token}")
 	public static String TOKEN;
 
 	public static String TO_RYO = "U4e19ea3aed98d90d540a6448ee11c75b";
