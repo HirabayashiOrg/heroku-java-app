@@ -25,7 +25,7 @@ public class GithubRestController {
 	ErrorMessageRepository errRepo;
 
 	@RequestMapping("/github/webhook/push")
-	public void webhook(@RequestBody String body) throws Exception {
+	public int webhook(@RequestBody String body) throws Exception {
 		String commitStr = "";
 		List<String> commits = new ArrayList<String>();
 		List<GithubPushBean> beans = new ArrayList<GithubPushBean>();
@@ -56,7 +56,7 @@ public class GithubRestController {
 		repo.saveAll(beans);
 		repo.flush();
 
-		return;
+		return 200;
 	}
 
 	@GetMapping("/github/api/commit")
