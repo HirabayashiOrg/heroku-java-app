@@ -8,7 +8,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 public class LinePushUtil {
-	@Value("${line.bot.channel-token}")
+	@Value("${linebot.token}")
 	public static String TOKEN;
 
 	public static String TO_RYO = "U4e19ea3aed98d90d540a6448ee11c75b";
