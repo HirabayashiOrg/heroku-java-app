@@ -2,6 +2,7 @@ package hr.github.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @Entity
 @Table(name="V_GITHUB_PUSH")
 public class GithubPushViewBean {
+	@Id
 	@Column
 	private String pushed;
 
