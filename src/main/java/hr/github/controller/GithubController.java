@@ -24,4 +24,14 @@ public class GithubController {
 
 		return mav;
 	}
+
+	@GetMapping("/github/push/chart")
+	public ModelAndView pushChart(ModelAndView mav) {
+		List<GithubPushBean> pushes = repo.findAll();
+
+		mav.setViewName("github/v_push");
+		mav.addObject("pushes", pushes);
+
+		return mav;
+	}
 }

@@ -6,8 +6,11 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.junit.Test;
+
 public class CommitUtilTest {
-	public static void main(String[] args) throws Exception {
+	@Test
+	public void GitAPI確認() throws Exception  {
 		URL url = new URL("https://api.github.com/repos/HirabayashiOrg/heroku-java-app/commits/1121dc98e32bdea93112ff5249f7612890e3543c");
 		URLConnection con = url.openConnection();
 
