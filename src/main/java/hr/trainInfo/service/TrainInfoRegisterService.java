@@ -4,11 +4,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import hr.trainInfo.bean.TrainInfoNotificationBean;
 import hr.trainInfo.bean.TrainInfoRegisterBean;
 import hr.trainInfo.repository.TrainInfoNotificationRepository;
 
+@Transactional
 @Service
 public class TrainInfoRegisterService {
 	@Autowired

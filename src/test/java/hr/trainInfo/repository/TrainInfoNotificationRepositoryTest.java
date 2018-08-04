@@ -23,4 +23,9 @@ public class TrainInfoNotificationRepositoryTest {
 	public void 疎通確認() {
 		repo.findAll();
 	}
+
+	@Test
+	public void 主キー検索() {
+		repo.findByLineAndName("dummy", "dummy");
+	}
 }
