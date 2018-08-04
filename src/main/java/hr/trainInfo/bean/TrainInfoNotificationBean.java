@@ -2,9 +2,8 @@ package hr.trainInfo.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import lombok.Builder;
@@ -18,15 +17,14 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name="TBL_TRAIN_INFO_NOTIFICATION")
+// 複合主キーを設定する場合に必要
+@IdClass(TrainInfoNotificationPrimaryKey.class)
 public class TrainInfoNotificationBean {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	private int id;
-
 	@Column
 	private String line;
 
+	@Id
 	@Column
 	private String name;
 

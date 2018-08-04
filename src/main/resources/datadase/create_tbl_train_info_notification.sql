@@ -1,7 +1,6 @@
 CREATE TABLE tbl_train_info_notification (
-  id     int NOT NULL AUTO_INCREMENT,
-  line   text NOT NULL,
-  name   text NOT NULL,
+  line   varchar(50) NOT NULL,
+  name   varchar(20) NOT NULL,
   status int NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (line, name)
 );
