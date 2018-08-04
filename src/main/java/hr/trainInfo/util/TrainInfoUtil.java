@@ -7,9 +7,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Service;
 
 import hr.trainInfo.bean.TrainInfoBean;
 
+@Service
 public class TrainInfoUtil {
 	private static final String TRAIN_INFO_URL = "https://transit.yahoo.co.jp/traininfo/area/4/";
 

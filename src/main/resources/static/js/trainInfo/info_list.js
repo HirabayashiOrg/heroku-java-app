@@ -7,7 +7,7 @@ $(function() {
 			$.post('/trainInfo/info/notice/reg', {
 				line: line
 			}, function(response) {
-				alert(JSON.stringify(response));
+				alert(response.message);
 			});
 		}
 	});

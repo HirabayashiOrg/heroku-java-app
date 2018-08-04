@@ -6,9 +6,14 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import hr.trainInfo.bean.TrainInfoBean;
 
+@RunWith(SpringRunner.class)
+@DataJpaTest
 public class TrainInfoUtilTest extends Assert {
 	@Rule
 	public ExpectedException exceptedException = ExpectedException.none();

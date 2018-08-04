@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hr.trainInfo.bean.TrainInfoBean;
 import hr.trainInfo.bean.TrainInfoNotificationBean;
 import hr.trainInfo.bean.TrainInfoRegisterBean;
 import hr.trainInfo.repository.TrainInfoNotificationRepository;
+import hr.trainInfo.service.TrainInfoNoticeService;
 import hr.trainInfo.service.TrainInfoRegisterService;
 
 @RestController
@@ -21,6 +23,9 @@ public class TrainInfoRestController {
 	@Autowired
 	TrainInfoRegisterService registerService;
 
+	@Autowired
+	private TrainInfoNoticeService noticeService;
+
 	@PostMapping("/trainInfo/info/notice/reg")
 	public TrainInfoRegisterBean info_notice_reg(@RequestParam("line") String line) {
 		TrainInfoRegisterBean bean = registerService.register(line);
@@ -28,8 +33,13 @@ public class TrainInfoRestController {
 		return bean;
 	}
 
-	@GetMapping("/trainInfo/info/notice/list")
+	@GetMapping("/trainInfo/api/info/notice/list")
 	public List<TrainInfoNotificationBean> info_notice_list() {
 		return repo.findAll();
+	}
+
+	@GetMapping("/trainInfo/api/info/target/list")
+	public List<TrainInfoBean> info_target_list() throws Exception {
+		return noticeService.getNoticeInfomations();
 	}
 }
