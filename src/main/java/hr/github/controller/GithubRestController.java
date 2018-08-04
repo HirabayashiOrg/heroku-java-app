@@ -56,7 +56,7 @@ public class GithubRestController {
 			bean.setDeletions(deletions);
 			beans.add(bean);
 			// Lineに通知する
-			LinePushUtil.sendMessage(LinePushUtil.TO_RYO, bean.toString());
+			LinePushUtil.sendMessage(LinePushUtil.TO_RYO, bean.toString() + "\nhttps://hr-heroku-java-app.herokuapp.com/github/push/chart");
 		}
 		repo.saveAll(beans);
 		repo.flush();
