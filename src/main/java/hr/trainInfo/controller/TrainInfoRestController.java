@@ -48,17 +48,21 @@ public class TrainInfoRestController {
 	@GetMapping("/trainInfo/line/notice/all")
 	public List<TrainInfoBean> notice_info() throws Exception {
 		List<TrainInfoBean> info_list = noticeService.getNoticeInfomations();
-		// メッセージの作成
-		String message = info_list.stream()
-				.map(info -> {
-					String infoMsg = "";
-					infoMsg += info.getLine() + "\n";
-					infoMsg += "▷ " + info.getInfo();
-					return infoMsg;
-				})
-				.collect(Collectors.joining("\n"));
-		// 通知
-		LinePushUtil.sendMessage(LinePushUtil.TO_RYO, message);
+		// リストが空でなければ通知
+		if(!info_list.isEmpty()) {
+			// メッセージの作成
+			String message = info_list.stream()
+					.map(info -> {
+						String infoMsg = "";
+						infoMsg += info.getLine() + "\n";
+						infoMsg += "▷ " + info.getInfo();
+						return infoMsg;
+					})
+					.collect(Collectors.joining("\n"));
+			// 通知
+			LinePushUtil.sendMessage(LinePushUtil.TO_RYO, message);
+		}
+
 		return info_list;
 	}
 }

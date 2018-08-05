@@ -28,7 +28,8 @@ public class TrainInfoNoticeService {
 		List<TrainInfoBean> list = infoList.stream()
 				.filter(info -> {
 					for(TrainInfoNotificationBean notice: noticeList) {
-						if(notice.getLine().equals(info.getLine())) {
+						// 通知対象リストに含まれる
+						if(notice.getLine().equals(info.getLine()) && !"平常運転".equals(info.getInfo())) {
 							return true;
 						}
 					}
