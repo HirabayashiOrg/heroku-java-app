@@ -50,7 +50,12 @@ public class TrainInfoRestController {
 		List<TrainInfoBean> info_list = noticeService.getNoticeInfomations();
 		// メッセージの作成
 		String message = info_list.stream()
-				.map(info -> info.toString())
+				.map(info -> {
+					String infoMsg = "";
+					infoMsg += info.getLine() + "\n";
+					infoMsg += "▷ " + info.getInfo();
+					return infoMsg;
+				})
 				.collect(Collectors.joining("\n"));
 		// 通知
 		LinePushUtil.sendMessage(LinePushUtil.TO_RYO, message);
