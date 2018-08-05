@@ -1,6 +1,7 @@
 package hr.trainInfo.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hr.line.uril.LinePushUtil;
 import hr.trainInfo.bean.TrainInfoBean;
 import hr.trainInfo.bean.TrainInfoNotificationBean;
 import hr.trainInfo.bean.TrainInfoRegisterBean;
@@ -41,5 +43,17 @@ public class TrainInfoRestController {
 	@GetMapping("/trainInfo/api/info/target/list")
 	public List<TrainInfoBean> info_target_list() throws Exception {
 		return noticeService.getNoticeInfomations();
+	}
+
+	@GetMapping("/trainInfo/line/notice/all")
+	public List<TrainInfoBean> notice_info() throws Exception {
+		List<TrainInfoBean> info_list = noticeService.getNoticeInfomations();
+		// メッセージの作成
+		String message = info_list.stream()
+				.map(info -> info.toString())
+				.collect(Collectors.joining("\n"));
+		// 通知
+		LinePushUtil.sendMessage(LinePushUtil.TO_RYO, message);
+		return info_list;
 	}
 }
