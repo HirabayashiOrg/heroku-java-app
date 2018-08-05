@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import hr.line.uril.LinePushUtil;
 import hr.trainInfo.bean.TrainInfoBean;
 import hr.trainInfo.bean.TrainInfoNotificationBean;
 import hr.trainInfo.repository.TrainInfoNotificationRepository;
@@ -38,5 +39,26 @@ public class TrainInfoNoticeService {
 				.collect(Collectors.toList());
 
 		return list;
+	}
+
+	public List<TrainInfoBean> noticeTrainInfomations() throws Exception {
+		List<TrainInfoBean> info_list = getNoticeInfomations();
+		// リストが空でなければ通知
+		if(!info_list.isEmpty()) {
+			// メッセージの作成
+			String message = info_list.stream()
+					.map(info -> {
+						String infoMsg = "";
+						infoMsg += info.getLine() + "\n";
+						infoMsg += "▷ " + info.getInfo();
+						return infoMsg;
+					})
+					.collect(Collectors.joining("\n"));
+			// 通知
+			LinePushUtil.sendMessage(LinePushUtil.TO_RYO, message);
+			LinePushUtil.sendMessage(LinePushUtil.TO_EMI, message);
+		}
+
+		return info_list;
 	}
 }
