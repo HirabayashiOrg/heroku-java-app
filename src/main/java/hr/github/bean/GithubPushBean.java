@@ -22,7 +22,7 @@ public class GithubPushBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private int id;
+	private long id;
 
 	@Column(nullable=false)
 	private int total;

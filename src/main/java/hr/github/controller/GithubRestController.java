@@ -6,8 +6,10 @@ import java.util.List;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.github.bean.GithubPushBean;
@@ -72,5 +74,11 @@ public class GithubRestController {
 	@GetMapping("/github/api/v/github_push")
 	public List<GithubPushViewBean> v_github_push__findAll() {
 		return repo_v.findAll();
+	}
+
+	@PostMapping("/github/api/pushes/delete")
+	public String pushes_delete(@RequestParam("id") long id) {
+		repo.deleteById(id);
+		return "ok";
 	}
 }

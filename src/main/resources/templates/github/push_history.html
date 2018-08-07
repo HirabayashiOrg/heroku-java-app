@@ -28,14 +28,16 @@
 		</thead>
 		<tbody>
 			<tr th:each="push: ${pushes}">
-				<td th:text="push.id"></td>
-				<td th:text="push.total"></td>
-				<td th:text="push.additions"></td>
-				<td th:text="push.deletions"></td>
-				<td th:text="push.pushed"></td>
+				<td th:text="${push.id}"></td>
+				<td th:text="${push.total}"></td>
+				<td th:text="${push.additions}"></td>
+				<td th:text="${push.deletions}"></td>
+				<td th:text="${push.pushed}"></td>
+				<td style="border:none"><button class="btn btn-danger" th:value="${push.id}">削除</button></td>
 			</tr>
 		</tbody>
 	</table>
 </div>
+<script src="/js/github/pushes.js" th:src="@{/js/github/pushes.js}"></script>
 </body>
 </html>
