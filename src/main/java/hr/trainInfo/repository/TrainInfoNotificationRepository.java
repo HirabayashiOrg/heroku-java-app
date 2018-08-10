@@ -10,6 +10,7 @@ import hr.trainInfo.bean.TrainInfoNotificationBean;
 import hr.trainInfo.bean.TrainInfoNotificationPrimaryKey;
 
 @Repository
+@Deprecated
 public interface TrainInfoNotificationRepository extends JpaRepository<TrainInfoNotificationBean, TrainInfoNotificationPrimaryKey>{
 	public Optional<TrainInfoNotificationBean> findByLineAndName(String line, String name);
 	public List<TrainInfoNotificationBean> findByName(String name);

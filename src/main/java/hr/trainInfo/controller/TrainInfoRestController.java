@@ -8,23 +8,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hr.trainInfo.bean.TrainInfoBean;
-import hr.trainInfo.bean.TrainInfoNotificationBean;
+import hr.trainInfo.bean.NTrainInfoNotificationBean;
 import hr.trainInfo.bean.TrainInfoRegisterBean;
-import hr.trainInfo.repository.TrainInfoNotificationRepository;
-import hr.trainInfo.service.TrainInfoNoticeService;
+import hr.trainInfo.repository.NTrainInfoNotificationRepository;
+import hr.trainInfo.service.NTrainInfoNoticeService;
 import hr.trainInfo.service.TrainInfoRegisterService;
 
 @RestController
 public class TrainInfoRestController {
 	@Autowired
-	TrainInfoNotificationRepository repo;
+	NTrainInfoNotificationRepository repo;
 
 	@Autowired
 	TrainInfoRegisterService registerService;
 
 	@Autowired
-	private TrainInfoNoticeService noticeService;
+	private NTrainInfoNoticeService noticeService;
 
 	@PostMapping("/trainInfo/info/notice/reg")
 	public TrainInfoRegisterBean info_notice_reg(@RequestParam("line") String line) {
@@ -34,17 +33,25 @@ public class TrainInfoRestController {
 	}
 
 	@GetMapping("/trainInfo/api/info/notice/list")
-	public List<TrainInfoNotificationBean> info_notice_list() {
+	public List<NTrainInfoNotificationBean> info_notice_list() {
 		return repo.findAll();
 	}
 
 	@GetMapping("/trainInfo/api/info/target/list")
-	public List<TrainInfoBean> info_target_list() throws Exception {
+	public List<NTrainInfoNotificationBean> info_target_list() throws Exception {
 		return noticeService.getNoticeInfomations();
 	}
 
 	@GetMapping("/trainInfo/line/notice/all")
-	public List<TrainInfoBean> notice_info() throws Exception {
-		return noticeService.noticeTrainInfomations();
+	public List<NTrainInfoNotificationBean> notice_info() throws Exception {
+		List<NTrainInfoNotificationBean> list = noticeService.getNoticeInfomations();
+		return noticeService.noticeTrainInfomations(list);
+	}
+
+	@GetMapping("/trainInfo/api/notice/update")
+	public List<NTrainInfoNotificationBean> noticeUpdateAPI() throws Exception {
+		List<NTrainInfoNotificationBean> list = noticeService.getNoticeInfomations();
+		registerService.update(list);
+		return list;
 	}
 }

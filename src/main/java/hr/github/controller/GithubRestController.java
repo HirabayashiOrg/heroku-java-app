@@ -33,17 +33,13 @@ public class GithubRestController {
 
 	@RequestMapping("/github/webhook/push")
 	public int webhook(@RequestBody String body) throws Exception {
-		String commitStr = "";
 		List<String> commits = new ArrayList<String>();
 		List<GithubPushBean> beans = new ArrayList<GithubPushBean>();
 
-		// jsonデータをマップにバインド
-		JSONObject json = new JSONObject(body);
 		// コミット番号を取得
 		commits = CommitUtil.getCimmitIdList(body);
 		// コミット取得APIのURLを生成
 		String url = CommitUtil.getCommitUrl(body);
-		// String jsondata = CommitUtil.getAPIData(url);
 
 		for(String commit: commits) {
 			String json_commit = CommitUtil.getAPIData(url + commit);

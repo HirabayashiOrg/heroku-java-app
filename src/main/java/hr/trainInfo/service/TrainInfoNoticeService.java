@@ -15,11 +15,13 @@ import hr.trainInfo.util.TrainInfoUtil;
 
 @Transactional
 @Service
+@Deprecated
 public class TrainInfoNoticeService {
 	@Autowired
 	private TrainInfoNotificationRepository repo;
 
 	// DBに登録済の路線情報のみ抽出する
+	@Deprecated
 	public List<TrainInfoBean> getNoticeInfomations() throws Exception {
 		// 運行情報リスト取得
 		List<TrainInfoBean> infoList = TrainInfoUtil.getInfomations();

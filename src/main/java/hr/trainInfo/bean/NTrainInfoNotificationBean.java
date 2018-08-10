@@ -14,7 +14,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
-// フィールドをすべて含むコンストラクタを自動生成
 @AllArgsConstructor
 @Builder
 @Getter
@@ -24,8 +23,7 @@ import lombok.ToString;
 @Table(name="TBL_TRAIN_INFO_NOTIFICATION")
 // 複合主キーを設定する場合に必要
 @IdClass(TrainInfoNotificationPrimaryKey.class)
-@Deprecated
-public class TrainInfoNotificationBean {
+public class NTrainInfoNotificationBean {
 	@Id
 	@Column
 	private String line;
@@ -34,6 +32,13 @@ public class TrainInfoNotificationBean {
 	@Column
 	private String name;
 
+	@Id
 	@Column
-	private int status;
+	private String url;
+
+	@Column
+	private String info;
+
+	@Column
+	private String detail;
 }

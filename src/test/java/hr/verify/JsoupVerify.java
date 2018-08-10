@@ -1,21 +1,20 @@
 package hr.verify;
 
-import static org.junit.Assert.*;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Assert;
 import org.junit.Test;
 
-public class JsoupVerify {
+public class JsoupVerify extends Assert{
 	private final String TRAIN_INFO_URL = "https://transit.yahoo.co.jp/traininfo/area/4/";
 
 	@Test
 	public void 動作検証() throws Exception {
 		String url = TRAIN_INFO_URL;
 		Document document = Jsoup.connect(url).get();
-
+		assertNotNull(document);
 		// System.out.println(document.html());
 	}
 

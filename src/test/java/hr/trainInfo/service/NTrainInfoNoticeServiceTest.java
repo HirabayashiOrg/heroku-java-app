@@ -10,44 +10,40 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import hr.trainInfo.bean.NTrainInfoNotificationBean;
-import hr.trainInfo.bean.TrainInfoRegisterBean;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class TrainInfoRegisterServiceTest extends Assert {
+public class NTrainInfoNoticeServiceTest extends Assert {
 	@Rule
 	public ExpectedException exprctException = ExpectedException.none();
 
 	@Autowired
-	private TrainInfoRegisterService registerService;
+	private NTrainInfoNoticeService noticeService;
 
 	@Test
-	@Rollback(true)  // 明示的にロールバックを設定
-	public void 新規登録確認() throws Exception {
-		TrainInfoRegisterBean bean = registerService.register("南武線");
-		assertEquals(bean.getMessage(), "登録しました！");
+	public void 通知対象リスト取得() throws Exception {
+		List<NTrainInfoNotificationBean> list = noticeService.getNoticeInfomations();
+		System.out.println(list);
 	}
-
 	@Test
-	@Rollback(true)  // 明示的にロールバックを設定
-	public void 更新確認() throws Exception {
+	public void テスト通知ー通知あり() throws Exception {
 		List<NTrainInfoNotificationBean> list = new ArrayList<NTrainInfoNotificationBean>();
 		NTrainInfoNotificationBean bean = NTrainInfoNotificationBean.builder()
 				.line("南武線[川崎～立川]")
-				.name("all")
-				.url("test")
-				.info("test")
-				.detail("test")
+				.info("テスト")
 				.build();
 		list.add(bean);
 
-		registerService.update(list);
+		noticeService.noticeTrainInfomations(list);
 	}
-
+	@Test
+	public void テスト通知ー通知なし() throws Exception {
+		List<NTrainInfoNotificationBean> list = new ArrayList<NTrainInfoNotificationBean>();
+		noticeService.noticeTrainInfomations(list);
+	}
 }

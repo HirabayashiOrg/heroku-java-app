@@ -17,6 +17,7 @@ import hr.trainInfo.bean.TrainInfoBean;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
+@SuppressWarnings("deprecation")
 public class TrainInfoNoticeServiceTest extends Assert {
 	@Rule
 	public ExpectedException exprctException = ExpectedException.none();
@@ -27,6 +28,7 @@ public class TrainInfoNoticeServiceTest extends Assert {
 	@Test
 	public void 新規登録確認() throws Exception {
 		List<TrainInfoBean> list = noticeService.getNoticeInfomations();
+		System.out.println(list);
 	}
 
 }
