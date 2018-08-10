@@ -54,4 +54,9 @@ public class TrainInfoRestController {
 		registerService.update(list);
 		return list;
 	}
+
+	@PostMapping("/trainInfo/api/notice/del")
+	public String noticeDeleteAPI(@RequestParam("line") String line) throws Exception {
+		return registerService.delete(line);
+	}
 }

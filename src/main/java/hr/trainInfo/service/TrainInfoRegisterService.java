@@ -48,4 +48,20 @@ public class TrainInfoRegisterService {
 		repo.saveAll(list);
 		repo.flush();
 	}
+	// データの削除
+	public String delete(String line) {
+		String message = "";
+		// DBから値を取得
+		Optional<NTrainInfoNotificationBean> optional = repo.findByLineAndName(line, "all");
+		// データが存在したら削除する
+		if(optional.isPresent()) {
+			repo.delete(optional.get());
+			repo.flush();
+			message = "削除しました！";
+		// データが存在しない場合は何もしない
+		} else {
+			message = "登録されていません。";
+		}
+		return message;
+	}
 }

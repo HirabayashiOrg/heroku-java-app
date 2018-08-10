@@ -54,4 +54,12 @@ public class TrainInfoRestControllerTest extends Assert {
 
 		result.andExpect(MockMvcResultMatchers.status().is(200));
 	}
+
+	@Test
+	@Rollback(true)
+	public void 路線削除API() throws Exception {
+		mockServer.perform(MockMvcRequestBuilders.post("/trainInfo/api/notice/del")
+				.param("line", "テスト"))
+				.andExpect(MockMvcResultMatchers.status().is(200));
+	}
 }

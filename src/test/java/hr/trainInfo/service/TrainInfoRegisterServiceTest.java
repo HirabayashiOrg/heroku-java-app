@@ -50,4 +50,14 @@ public class TrainInfoRegisterServiceTest extends Assert {
 		registerService.update(list);
 	}
 
+	@Test
+	@Rollback(true)
+	public void 削除確認() throws Exception {
+		String line = "テスト";
+
+		String message = registerService.delete(line);
+
+		assertEquals(message, "登録されていません。");
+	}
+
 }

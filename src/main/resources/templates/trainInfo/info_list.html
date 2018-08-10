@@ -22,7 +22,7 @@
 			<tr th:each="info: ${infoList}" th:class="${info.info.contains('平常')?'':'bg-danger'}">
 				<td>
 					<span th:text="${info.line}"></span>
-					<button class="btn btn-danger pull-right del">解除</button>
+					<button class="btn btn-danger  pull-right del">解除</button>
 					<button class="btn btn-primary pull-right reg">登録</button>
 				</td>
 				<td th:text="${info.info}"></td>
