@@ -44,7 +44,10 @@ public class TrainInfoRestController {
 
 	@GetMapping("/trainInfo/line/notice/all")
 	public List<NTrainInfoNotificationBean> notice_info() throws Exception {
+		// 通知対象のリストを取得
 		List<NTrainInfoNotificationBean> list = noticeService.getNoticeInfomations();
+		// DBを更新
+		registerService.update(list);
 		return noticeService.noticeTrainInfomations(list);
 	}
 
